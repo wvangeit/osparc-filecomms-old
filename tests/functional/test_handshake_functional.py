@@ -1,7 +1,7 @@
 import concurrent.futures as futures
 import uuid
 
-import handshakes
+from ospace_filecomms import handshakes
 
 
 def run_handshake(self_uuid, input_dir_path, output_dir_path, is_initiator):

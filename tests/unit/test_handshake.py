@@ -4,7 +4,7 @@ import pathlib as pl
 
 import pytest
 
-import handshakes
+from osparc_filecomms import handshakes
 
 test_input_dir = pl.Path("doesntexist_input")
 test_output_dir = pl.Path("doesntexist_ouput")

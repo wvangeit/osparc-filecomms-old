@@ -1,13 +1,20 @@
 [project]
 name = "osparc_filecomms"
 description = "oSparc file communications"
-version = "0.0.1"
+dynamic = ["version"]
 authors = [
     {name="Werner Van Geit @ IT'IS Zurich"}
 ]
 license={file="LICENSE.txt"}
 readme="README.md"
 
+[build-system]
+requires=["setuptools","versioneer[toml]"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["osparc_filecomms"]
+package-dir = {"osparc_filecomms" = "src"}
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-mock"]
@@ -19,3 +26,11 @@ log_cli_level = "DEBUG"
 
 [tool.distutils.bdist_wheel]
 universal = true
+
+[tool.versioneer]
+VCS = "git"
+style = "pep440-post"
+versionfile_source = "osparc_filecomms/_version.py"
+versionfile_build = "osparc_filecomms/_version.py"
+tag_prefix = ""
+parentdir_prefix = ""
