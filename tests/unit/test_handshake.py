@@ -3,27 +3,26 @@ import pathlib as pl
 
 import pytest
 
-import osparc_filecomms
+import handshakes
 
-this_dir = pl.Path(__file__).parent
-test_input_dir = this_dir / "test_input_dir"
-test_output_dir = this_dir / "test_output_dir"
+test_input_dir = pl.Path("doesntexist_input")
+test_output_dir = pl.Path("doesntexist_ouput")
 
 
 def test_init():
-    handshake = osparc_filecomms.Handshake(
+    handshake = handshakes.FileHandshake(
         "Initiator",
         pl.Path(test_input_dir),
         pl.Path(test_output_dir),
     )
 
-    assert isinstance(handshake, osparc_filecomms.Handshake)
+    assert isinstance(handshake, handshakes.FileHandshake)
     assert handshake.is_initiator is False
 
 
 def test_init_fail():
     with pytest.raises(TypeError) as exc_info:
-        _ = osparc_filecomms.Handshake("Initiator", pl.Path(test_output_dir))
+        _ = handshakes.FileHandshake("Initiator", pl.Path(test_output_dir))
 
         assert (
             exc_info.value
@@ -35,7 +34,7 @@ def test_handshake_initiator(mocker):
     initiator_uuid = "Initiator"
     receiver_uuid = "Receiver"
 
-    initiator_handshake = osparc_filecomms.Handshake(
+    initiator_handshake = handshakes.FileHandshake(
         initiator_uuid,
         pl.Path(test_input_dir),
         pl.Path(test_output_dir),
@@ -94,7 +93,7 @@ def test_handshake_receiver(mocker):
     initiator_uuid = "Initiator"
     receiver_uuid = "Receiver"
 
-    receiver_handshake = osparc_filecomms.Handshake(
+    receiver_handshake = handshakes.FileHandshake(
         receiver_uuid,
         pl.Path(test_input_dir),
         pl.Path(test_output_dir),

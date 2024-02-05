@@ -1,3 +1,5 @@
 __pycache__
 build
 *.egg-info
+tests/functional/test_output_dir
+.tox
