@@ -30,7 +30,7 @@ universal = true
 [tool.versioneer]
 VCS = "git"
 style = "pep440-post"
-versionfile_source = "osparc_filecomms/_version.py"
-versionfile_build = "osparc_filecomms/_version.py"
+versionfile_source = "src/_version.py"
+versionfile_build = "src/_version.py"
 tag_prefix = ""
 parentdir_prefix = ""
