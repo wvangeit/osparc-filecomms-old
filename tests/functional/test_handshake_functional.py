@@ -5,7 +5,7 @@ import handshakes
 
 
 def run_handshake(self_uuid, input_dir_path, output_dir_path, is_initiator):
-    handshake = handshakes.FileHandshake(
+    handshake = handshakes.FileHandshaker(
         self_uuid, input_dir_path, output_dir_path, is_initiator
     )
     other_uuid = handshake.shake()

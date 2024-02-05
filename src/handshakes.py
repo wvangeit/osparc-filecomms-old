@@ -10,7 +10,7 @@ POLLING_INTERVAL = 1  # second
 PRINT_POLLING_INTERVAL = 10  # number of polls before print
 
 
-class FileHandshake:
+class FileHandshaker:
     def __init__(
         self,
         self_uuid: str,
@@ -58,6 +58,8 @@ class FileHandshake:
             "command": "register",
             "uuid": self.self_uuid,
         }
+        if self.handshake_output_path.exists():
+            self.handshake_output_path.unlink()
         self.handshake_output_path.write_text(json.dumps(handshake_out))
         logger.info(f"Wrote handshake file to {self.handshake_output_path}")
 
@@ -92,6 +94,8 @@ class FileHandshake:
             "uuid": self.self_uuid,
             "confirmed_uuid": other_uuid,
         }
+        if self.handshake_output_path.exists():
+            self.handshake_output_path.unlink()
         self.handshake_output_path.write_text(json.dumps(handshake_out))
 
         assert other_uuid is not None

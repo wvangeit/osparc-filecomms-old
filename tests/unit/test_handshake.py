@@ -11,19 +11,19 @@ test_output_dir = pl.Path("doesntexist_ouput")
 
 
 def test_init():
-    handshake = handshakes.FileHandshake(
+    handshake = handshakes.FileHandshaker(
         "Initiator",
         pl.Path(test_input_dir),
         pl.Path(test_output_dir),
     )
 
-    assert isinstance(handshake, handshakes.FileHandshake)
+    assert isinstance(handshake, handshakes.FileHandshaker)
     assert handshake.is_initiator is False
 
 
 def test_init_fail():
     with pytest.raises(TypeError) as exc_info:
-        _ = handshakes.FileHandshake("Initiator", pl.Path(test_output_dir))
+        _ = handshakes.FileHandshaker("Initiator", pl.Path(test_output_dir))
 
         assert (
             exc_info.value
@@ -35,7 +35,7 @@ def test_handshake_initiator(mocker):
     initiator_uuid = str(uuid.uuid4())
     receiver_uuid = str(uuid.uuid4())
 
-    initiator_handshake = handshakes.FileHandshake(
+    initiator_handshake = handshakes.FileHandshaker(
         initiator_uuid,
         pl.Path(test_input_dir),
         pl.Path(test_output_dir),
@@ -94,7 +94,7 @@ def test_handshake_receiver(mocker):
     initiator_uuid = "Initiator"
     receiver_uuid = "Receiver"
 
-    receiver_handshake = handshakes.FileHandshake(
+    receiver_handshake = handshakes.FileHandshaker(
         receiver_uuid,
         pl.Path(test_input_dir),
         pl.Path(test_output_dir),
