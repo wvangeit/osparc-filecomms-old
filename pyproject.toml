@@ -9,12 +9,15 @@ license={file="LICENSE.txt"}
 readme="README.md"
 
 [build-system]
-requires=["setuptools","versioneer[toml]"]
+requires=["setuptools","setuptools_scm"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 packages = ["osparc_filecomms"]
 package-dir = {"osparc_filecomms" = "src"}
+
+[tool.setuptools_scm]
+version_file = "src/_version.py"
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-mock"]
