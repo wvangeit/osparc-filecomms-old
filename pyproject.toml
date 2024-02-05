@@ -4,7 +4,7 @@ description = "oSparc file communications"
 version = "0.0.1"
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-mock", "pathos"]
+test = ["pytest", "pytest-mock"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

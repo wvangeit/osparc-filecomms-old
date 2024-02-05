@@ -1,6 +1,7 @@
 import logging
 import json
 import time
+import pathlib as pl
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -12,17 +13,17 @@ PRINT_POLLING_INTERVAL = 10  # number of polls before print
 class FileHandshake:
     def __init__(
         self,
-        self_uuid,
-        input_dir_path,
-        output_dir_path,
-        is_initiator=False,
-        handshake_filename="handshake.json",
+        self_uuid: str,
+        input_dir_path: pl.Path,
+        output_dir_path: pl.Path,
+        is_initiator: bool = False,
+        handshake_filename: str = "handshake.json",
         polling_interval=POLLING_INTERVAL,
         print_polling_interval=PRINT_POLLING_INTERVAL,
-        verbose=logging.ERROR,
+        verbose_level=logging.ERROR,
     ):
-        self.verbose = verbose
-        logger.setLevel(self.verbose)
+        self.verbose_level = verbose_level
+        logger.setLevel(self.verbose_level)
 
         self.self_uuid = self_uuid
         self.other_uuid = None

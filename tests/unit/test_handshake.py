@@ -1,4 +1,5 @@
 import json
+import uuid
 import pathlib as pl
 
 import pytest
@@ -31,8 +32,8 @@ def test_init_fail():
 
 
 def test_handshake_initiator(mocker):
-    initiator_uuid = "Initiator"
-    receiver_uuid = "Receiver"
+    initiator_uuid = str(uuid.uuid4())
+    receiver_uuid = str(uuid.uuid4())
 
     initiator_handshake = handshakes.FileHandshake(
         initiator_uuid,
