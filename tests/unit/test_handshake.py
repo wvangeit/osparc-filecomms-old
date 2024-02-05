@@ -44,18 +44,14 @@ def test_handshake_initiator(mocker):
 
     assert initiator_handshake.is_initiator is True
 
-    mocker.patch.object(
-        initiator_handshake, "wait_for_path_exists", return_value=True
-    )
-
     returned_confirmed_handshake = {
         "uuid": receiver_uuid,
         "confirmed_uuid": initiator_uuid,
         "command": "confirm_registration",
     }
     mocker.patch.object(
-        pl.Path,
-        "read_text",
+        initiator_handshake,
+        "read_until_path_exists",
         return_value=json.dumps(returned_confirmed_handshake),
     )
 
@@ -103,7 +99,10 @@ def test_handshake_receiver(mocker):
     assert receiver_handshake.is_initiator is False
 
     mocker.patch.object(
-        receiver_handshake, "wait_for_path_exists", return_value=True
+        pl.Path, "exists", return_value=True
+    )
+    mocker.patch.object(
+        pl.Path, "unlink", return_value=True
     )
 
     register_handshake = {

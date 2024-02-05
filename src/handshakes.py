@@ -64,12 +64,12 @@ class FileHandshaker:
         logger.info(f"Wrote handshake file to {self.handshake_output_path}")
 
         def try_handshake():
-            self.wait_for_path_exists(
+            handshake_input_content = self.read_until_path_exists(
                 self.handshake_input_path,
                 wait_message="Waiting for handshake file ...",
             )
 
-            return json.loads(self.handshake_input_path.read_text())
+            return json.loads(handshake_input_content)
 
         waiter = 0
         while True:
@@ -111,12 +111,13 @@ class FileHandshaker:
         last_written_other_uuid = None
         waiter = 0
         while True:
-            self.wait_for_path_exists(
-                self.handshake_input_path,
-                wait_message="Waiting for handshake file ...",
+            handshake_in = json.loads(
+                self.read_until_path_exists(
+                    self.handshake_input_path,
+                    wait_message="Waiting for handshake file ...",
+                )
             )
 
-            handshake_in = json.loads(self.handshake_input_path.read_text())
             command = handshake_in["command"]
             if command == "register":
                 other_uuid = handshake_in["uuid"]
@@ -153,9 +154,17 @@ class FileHandshaker:
 
         return self.other_uuid
 
-    def wait_for_path_exists(self, path, wait_message="Waiting..."):
+    def read_until_path_exists(self, path, wait_message="Waiting..."):
         waiter = 0
-        while not path.exists():
+        while True:
+            if path.exists():
+                try:
+                    file_content = path.read_text()
+                except FileNotFoundError:
+                    pass
+                else:
+                    return file_content
+
             if waiter % self.print_polling_interval == 0:
                 logger.debug(wait_message)
             time.sleep(self.polling_interval)
