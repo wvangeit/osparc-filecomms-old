@@ -52,7 +52,7 @@ jobs:
               with:
                   repository-url: https://test.pypi.org/legacy/
 
-    test-pypi:
+    pypi:
         name: Publish wheels on Test PyPI
         runs-on: ubuntu-latest 
         needs:
