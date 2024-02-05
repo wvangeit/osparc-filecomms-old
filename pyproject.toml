@@ -16,3 +16,6 @@ test = ["pytest", "pytest-mock"]
 testpaths = ["tests"]
 log_cli = true
 log_cli_level = "DEBUG"
+
+[tool.distutils.bdist_wheel]
+universal = true
