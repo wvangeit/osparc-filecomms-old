@@ -18,6 +18,7 @@ package-dir = {"osparc_filecomms" = "src"}
 
 [tool.setuptools_scm]
 version_file = "src/_version.py"
+version_scheme = "post-release"
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-mock"]
