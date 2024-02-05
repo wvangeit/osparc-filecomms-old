@@ -2,6 +2,12 @@
 name = "osparc_filecomms"
 description = "oSparc file communications"
 version = "0.0.1"
+authors = [
+    {name="Werner Van Geit @ IT'IS Zurich"}
+]
+license={file="LICENSE.txt"}
+readme="README.md"
+
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-mock"]
