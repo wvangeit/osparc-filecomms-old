@@ -3,6 +3,9 @@ on:
 
 
 jobs:
+    call-test-workflow:
+        uses: wvangeit/osparc-filecomms/.github/workflows/test.yml@master
+
     wheels:
         name: building wheel
         runs-on: ubuntu-latest
