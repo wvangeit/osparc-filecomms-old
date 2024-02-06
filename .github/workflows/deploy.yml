@@ -19,9 +19,12 @@ jobs:
               uses: actions/setup-python@v5
               with:
                   python-version: 3.11
-
             - name: Install dependencies
               run: python -m pip install --upgrade pip setuptools build
+            - name: Python Semantic Release
+              uses: python-semantic-release/python-semantic-release@master
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
             - name: Build wheel
               run: python -m build
             - name: Upload wheels
