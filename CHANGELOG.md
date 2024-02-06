@@ -2,10 +2,15 @@
 
 
 
-## v0.9.20 (2024-02-06)
+## v0.9.19 (2024-02-06)
 
+### Fix
 
-## v0.9.19-rc.1 (2024-02-06)
+* Separate task for release ([`bd6fbb1`](https://github.com/wvangeit/osparc-filecomms/commit/bd6fbb1464a734ead81af18e2582a0a73984b5c0))
+
+* Tag at each commit ([`c1ecfa5`](https://github.com/wvangeit/osparc-filecomms/commit/c1ecfa5a0040b439c6745480a61c6cf01576fed5))
+
+* Test release ([`4196bf2`](https://github.com/wvangeit/osparc-filecomms/commit/4196bf2dd6db7e98618d92f222af4972cc3cd4be))
 
 
 ## v0.9.18 (2024-02-06)
@@ -16,7 +21,7 @@
 
 ## v0.9.16 (2024-02-06)
 
-### Unknown
+### Fix
 
 * Merge pull request #10 from wvangeit/semantic_release
 
@@ -63,7 +68,7 @@ Semantic release ([`4af762b`](https://github.com/wvangeit/osparc-filecomms/commi
 
 ## v0.9.3 (2024-02-06)
 
-### Unknown
+### Fix
 
 * Using semantic release ([`a19dc8d`](https://github.com/wvangeit/osparc-filecomms/commit/a19dc8dbf645ef323e6fde09510c6488ea2d299a))
 
@@ -82,7 +87,7 @@ Fix polling interval ([`985fa86`](https://github.com/wvangeit/osparc-filecomms/c
 
 ## v0.9.2 (2024-02-06)
 
-### Unknown
+### Fix
 
 * Fix polling interval ([`facf1ab`](https://github.com/wvangeit/osparc-filecomms/commit/facf1abe67fa15d9202de1d8f5cd952289943f6f))
 
@@ -97,7 +102,7 @@ Remove handshake before starting ([`f57698e`](https://github.com/wvangeit/osparc
 
 ## v0.9.1 (2024-02-05)
 
-### Unknown
+### Fix
 
 * Merge pull request #6 from wvangeit/wvangeit-patch-1
 
