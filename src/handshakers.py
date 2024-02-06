@@ -6,7 +6,7 @@ import pathlib as pl
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-POLLING_INTERVAL = .1  # second
+POLLING_INTERVAL = 0.1  # second
 PRINT_POLLING_INTERVAL = 100  # number of polls before print
 
 
@@ -45,6 +45,9 @@ class FileHandshaker:
 
     def shake(self):
         """Perform handshake with other service"""
+
+        if self.handshake_output_path.exists():
+            self.handshake_output_path.unlink()
 
         if self.is_initiator:
             return self.shake_initiator()
