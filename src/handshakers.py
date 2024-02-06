@@ -69,7 +69,7 @@ class FileHandshaker:
         def try_handshake():
             handshake_input_content = self.read_until_path_exists(
                 self.handshake_input_path,
-                wait_message="Waiting for handshake file ...",
+                wait_message="Waiting for handshake confirmation ...",
             )
 
             return json.loads(handshake_input_content)
@@ -134,6 +134,9 @@ class FileHandshaker:
                     }
                     self.handshake_output_path.write_text(
                         json.dumps(handshake_out)
+                    )
+                    logger.info(
+                        f"Wrote handshake confirmation to {self.handshake_output_path}"
                     )
                     last_written_other_uuid = other_uuid
             elif command == "confirm_registration":
