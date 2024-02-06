@@ -4,4 +4,3 @@ build
 tests/functional/test_output_dir
 .tox
 dist
-src/_version.py
