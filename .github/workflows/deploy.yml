@@ -1,11 +1,14 @@
 on:
     push:
+        branches:
+                - master
 
 
 jobs:
     call-test-workflow:
         uses: wvangeit/osparc-filecomms/.github/workflows/test.yml@master
 
+    
     wheels:
         name: building wheel
         runs-on: ubuntu-latest
@@ -19,9 +22,13 @@ jobs:
               uses: actions/setup-python@v5
               with:
                   python-version: 3.11
-
             - name: Install dependencies
-              run: python -m pip install --upgrade pip setuptools build
+              run: python -m pip install --upgrade pip setuptools build      
+            - name: Bump version and push tag
+              id: tag_version
+              uses: mathieudutour/github-tag-action@v6.1
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
             - name: Build wheel
               run: python -m build
             - name: Upload wheels
@@ -29,6 +36,12 @@ jobs:
               with:
                   name: wheels-ubuntu-latest-py3.11
                   path: ./dist/*.whl
+            - name: Create a GitHub release
+              uses: ncipollo/release-action@v1
+              with:
+                  tag: ${{ steps.tag_version.outputs.new_tag }}
+                  name: Release ${{ steps.tag_version.outputs.new_tag }}
+                  body: ${{ steps.tag_version.outputs.changelog }}
 
     test-pypi:
         name: Publish wheels on Test PyPI
@@ -60,7 +73,6 @@ jobs:
         environment:
             name: osparc-filecomms
             url: https://pypi.org/p/osparc-filecomms
-        if: github.ref == 'refs/heads/master'
         permissions:
             id-token: write
         steps:
