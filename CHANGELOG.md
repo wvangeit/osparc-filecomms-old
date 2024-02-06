@@ -2,6 +2,15 @@
 
 
 
+## v0.9.20 (2024-02-06)
+
+### Fix
+
+* Merge branch &#39;test_release&#39; of github.com:wvangeit/osparc-filecomms into test_release ([`1786d22`](https://github.com/wvangeit/osparc-filecomms/commit/1786d222c1195466d3841f382c04743b2c68d512))
+
+* Remove double release bump ([`50eedd0`](https://github.com/wvangeit/osparc-filecomms/commit/50eedd0e5a79fcfa120284bd8e3f76d5e8cc1a1f))
+
+
 ## v0.9.19 (2024-02-06)
 
 ### Fix
