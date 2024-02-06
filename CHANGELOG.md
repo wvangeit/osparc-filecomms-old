@@ -2,6 +2,17 @@
 
 
 
+## v0.9.16 (2024-02-06)
+
+### Unknown
+
+* Merge pull request #10 from wvangeit/semantic_release
+
+Semantic release ([`4af762b`](https://github.com/wvangeit/osparc-filecomms/commit/4af762b2ab87b3ad9d776065554ff9203b54d3e2))
+
+* Run semantic release action ([`cb7a546`](https://github.com/wvangeit/osparc-filecomms/commit/cb7a546bb616305be1b7742c973c1943853b226b))
+
+
 ## v0.9.15 (2024-02-06)
 
 
