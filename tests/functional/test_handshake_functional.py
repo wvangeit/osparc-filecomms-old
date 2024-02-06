@@ -1,11 +1,11 @@
 import concurrent.futures as futures
 import uuid
 
-from osparc_filecomms import handshakes
+from osparc_filecomms import handshakers
 
 
 def run_handshake(self_uuid, input_dir_path, output_dir_path, is_initiator):
-    handshake = handshakes.FileHandshaker(
+    handshake = handshakers.FileHandshaker(
         self_uuid, input_dir_path, output_dir_path, is_initiator
     )
     other_uuid = handshake.shake()

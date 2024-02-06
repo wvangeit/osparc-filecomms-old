@@ -4,26 +4,26 @@ import pathlib as pl
 
 import pytest
 
-from osparc_filecomms import handshakes
+from osparc_filecomms import handshakers
 
 test_input_dir = pl.Path("doesntexist_input")
 test_output_dir = pl.Path("doesntexist_ouput")
 
 
 def test_init():
-    handshake = handshakes.FileHandshaker(
+    handshake = handshakers.FileHandshaker(
         "Initiator",
         pl.Path(test_input_dir),
         pl.Path(test_output_dir),
     )
 
-    assert isinstance(handshake, handshakes.FileHandshaker)
+    assert isinstance(handshake, handshakers.FileHandshaker)
     assert handshake.is_initiator is False
 
 
 def test_init_fail():
     with pytest.raises(TypeError) as exc_info:
-        _ = handshakes.FileHandshaker("Initiator", pl.Path(test_output_dir))
+        _ = handshakers.FileHandshaker("Initiator", pl.Path(test_output_dir))
 
         assert (
             exc_info.value
@@ -35,7 +35,7 @@ def test_handshake_initiator(mocker):
     initiator_uuid = str(uuid.uuid4())
     receiver_uuid = str(uuid.uuid4())
 
-    initiator_handshake = handshakes.FileHandshaker(
+    initiator_handshake = handshakers.FileHandshaker(
         initiator_uuid,
         pl.Path(test_input_dir),
         pl.Path(test_output_dir),
@@ -90,7 +90,7 @@ def test_handshake_receiver(mocker):
     initiator_uuid = "Initiator"
     receiver_uuid = "Receiver"
 
-    receiver_handshake = handshakes.FileHandshaker(
+    receiver_handshake = handshakers.FileHandshaker(
         receiver_uuid,
         pl.Path(test_input_dir),
         pl.Path(test_output_dir),
@@ -98,12 +98,8 @@ def test_handshake_receiver(mocker):
 
     assert receiver_handshake.is_initiator is False
 
-    mocker.patch.object(
-        pl.Path, "exists", return_value=True
-    )
-    mocker.patch.object(
-        pl.Path, "unlink", return_value=True
-    )
+    mocker.patch.object(pl.Path, "exists", return_value=True)
+    mocker.patch.object(pl.Path, "unlink", return_value=True)
 
     register_handshake = {
         "uuid": initiator_uuid,

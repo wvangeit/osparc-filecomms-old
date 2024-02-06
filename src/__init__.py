@@ -1,2 +1,2 @@
 from . import _version  # NOQA
-from . import handshakes  # NOQA
+from . import handshakers  # NOQA
