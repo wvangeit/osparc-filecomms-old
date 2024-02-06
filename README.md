@@ -25,7 +25,8 @@ output_dir = Path("output_dir")
 
 my_uuid = str(uuid.uuid4())
 
-handshaker = handshakers.FileHandshaker(my_uuid, input_dir, output_dir, is_initiator=True)
+is_initiator = True # Change this according to if you are the initiator or the receiver
+handshaker = handshakers.FileHandshaker(my_uuid, input_dir, output_dir, is_initiator=is_initiator)
 
 other_side_uuid = handshaker.shake()
 print(f"I performed a handshake. My uuid is: {my_uuid}. The other side's uuid is: {other_side_uuid}")
@@ -33,3 +34,16 @@ print(f"I performed a handshake. My uuid is: {my_uuid}. The other side's uuid is
 
 After this code has run on both sides, both uuid's can be used in data files that are exchanged. 
 If the processes accessing these files make sure the receiver and sender uuid match, they can be sure the files are coming from another service that is live.
+
+```
+import json
+
+output_file_path = output_dir \ 'some_data.json'
+data = [4, 3]
+file_content = {
+  'sender_uuid': my_uuid,
+  'receiver_uuid': other_side_uuid, 
+  'data': data
+}
+output_file_path.write_text(json.dumps(file_content))
+```
