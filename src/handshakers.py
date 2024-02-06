@@ -6,8 +6,8 @@ import pathlib as pl
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-POLLING_INTERVAL = 0.1  # second
-PRINT_POLLING_INTERVAL = 100  # number of polls before print
+POLLING_INTERVAL = 1  # second
+PRINT_POLLING_INTERVAL = 10  # number of polls before print
 
 
 class FileHandshaker:
