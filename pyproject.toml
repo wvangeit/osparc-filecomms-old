@@ -6,7 +6,7 @@ authors = [
 ]
 license={file="LICENSE.txt"}
 readme="README.md"
-version="0.9.3"
+version="0.9.4"
 
 [build-system]
 requires=["setuptools"]
@@ -32,7 +32,7 @@ commit_parser = "angular"
 logging_use_named_masks = false
 major_on_zero = true
 tag_format = "{version}"
-version_variable = ["src/_version.py:__version__"]
+version_variables = ["src/_version.py:__version__"]
 version_toml = ["pyproject.toml:project.version"]
 
 [tool.semantic_release.branches.main]
