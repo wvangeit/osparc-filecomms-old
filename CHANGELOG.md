@@ -2,9 +2,11 @@
 
 
 
-## v0.0.0 (2024-02-06)
+## v0.9.3 (2024-02-06)
 
 ### Unknown
+
+* Using semantic release ([`a19dc8d`](https://github.com/wvangeit/osparc-filecomms/commit/a19dc8dbf645ef323e6fde09510c6488ea2d299a))
 
 * Merge pull request #9 from wvangeit/rename_handshakers
 
@@ -18,6 +20,11 @@ Write message when outputting file ([`e4b78e9`](https://github.com/wvangeit/ospa
 
 Fix polling interval ([`985fa86`](https://github.com/wvangeit/osparc-filecomms/commit/985fa86bc981db3bffb3364953735738d1ed78c5))
 
+
+## v0.9.2 (2024-02-06)
+
+### Unknown
+
 * Fix polling interval ([`facf1ab`](https://github.com/wvangeit/osparc-filecomms/commit/facf1abe67fa15d9202de1d8f5cd952289943f6f))
 
 * Merge pull request #7 from wvangeit/rename_handshakers
@@ -27,6 +34,11 @@ Remove handshake before starting ([`f57698e`](https://github.com/wvangeit/osparc
 * Remove handshake before starting ([`61a20d5`](https://github.com/wvangeit/osparc-filecomms/commit/61a20d5ba570d76646513099578faf69d79a863d))
 
 * Renamed handshakes to handshakers ([`9644807`](https://github.com/wvangeit/osparc-filecomms/commit/9644807efa5b11c9cf271a3ce41ca99db7455f13))
+
+
+## v0.9.1 (2024-02-05)
+
+### Unknown
 
 * Merge pull request #6 from wvangeit/wvangeit-patch-1
 

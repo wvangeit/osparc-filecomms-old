@@ -1,12 +1,12 @@
 [project]
 name = "osparc_filecomms"
 description = "oSparc file communications"
-dynamic = ["version"]
 authors = [
     {name="Werner Van Geit @ IT'IS Zurich"}
 ]
 license={file="LICENSE.txt"}
 readme="README.md"
+version="0.9.3"
 
 [build-system]
 requires=["setuptools"]
