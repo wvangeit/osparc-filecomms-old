@@ -66,7 +66,7 @@ default = "semantic-release <semantic-release>"
 [tool.semantic_release.commit_parser_options]
 allowed_tags = ["build", "chore", "ci", "docs", "feat", "fix", "perf", "style", "refactor", "test"]
 minor_tags = ["feat"]
-patch_tags = ["fix", "perf"]
+patch_tags = [".*"]
 
 [tool.semantic_release.remote]
 name = "origin"
