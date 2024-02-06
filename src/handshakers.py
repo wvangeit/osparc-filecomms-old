@@ -146,7 +146,7 @@ class FileHandshaker:
             else:
                 raise ValueError(f"Invalid handshake command: {command}")
 
-            if waiter % 10 == 0:
+            if waiter % self.print_polling_interval == 0:
                 logger.info("Waiting for registration confirmation...")
             time.sleep(self.polling_interval)
             waiter += 1
