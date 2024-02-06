@@ -6,7 +6,7 @@ authors = [
 ]
 license={file="LICENSE.txt"}
 readme="README.md"
-version="0.9.6"
+version="0.9.7"
 
 [build-system]
 requires=["setuptools"]
