@@ -34,6 +34,7 @@ print(f"I performed a handshake. My uuid is: {my_uuid}. The other side's uuid is
 
 After this code has run on both sides, both uuid's can be used in data files that are exchanged. 
 If the processes accessing these files make sure the receiver and sender uuid match, they can be sure the files are coming from another service that is live.
+For example to send a file:
 
 ```
 import json
@@ -46,4 +47,24 @@ file_content = {
   'data': data
 }
 output_file_path.write_text(json.dumps(file_content))
+```
+
+The other process can the receive it then using:
+
+```
+import json
+
+input_file_path = input_dir \ 'some_data.json'
+
+sender_uuid = None
+receiver_uuid = None
+while receiver_uuid != my_uuid and sender_uuid != other_side_uuid:
+  while not input_file_path.exists():
+    time.sleep(1)
+
+  file_content = json.loads(input_file_path.read_text())
+  receiver_uuid = file_content['receiver_uuid']
+  sender_uuid = file_content['sender_uuid']
+
+data = file_content['data']
 ```
