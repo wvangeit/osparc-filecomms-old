@@ -30,7 +30,7 @@ jobs:
             - name: Bump version and push tag
               id: tag_version
               uses: anothrNick/github-tag-action@1.64.0
-              with:
+              env:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   with_v: false
             - name: Build wheel
