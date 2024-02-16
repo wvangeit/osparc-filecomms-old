@@ -25,7 +25,7 @@ class FileHandshaker:
         self.verbose_level = verbose_level
         logger.setLevel(self.verbose_level)
 
-        self.self_uuid = self_uuid
+        self.self_uuid = str(self_uuid)
         self.other_uuid = None
 
         self.is_initiator = is_initiator
