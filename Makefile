@@ -7,5 +7,9 @@ clean:
 	rm -rf dist
 	rm -rf build
 
-wheel:
+wheel: clean
+	pip -q install build
 	python -m build
+
+install: wheel
+	pip install dist/*.whl
