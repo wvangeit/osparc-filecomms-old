@@ -4,7 +4,7 @@ import time
 import pathlib as pl
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.ERROR)
 
 POLLING_INTERVAL = 1  # second
 PRINT_POLLING_INTERVAL = 10  # number of polls before print
