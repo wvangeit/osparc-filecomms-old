@@ -1,7 +1,7 @@
-import logging
 import json
-import time
+import logging
 import pathlib as pl
+import time
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -69,7 +69,8 @@ class FileHandshaker:
         def try_handshake():
             handshake_input_content = self.read_until_path_exists(
                 self.handshake_input_path,
-                wait_message="Waiting for handshake confirmation ...",
+                wait_message="Waiting for handshake confirmation at "
+                f"{self.handshake_input_path}...",
             )
 
             return json.loads(handshake_input_content)
@@ -85,7 +86,8 @@ class FileHandshaker:
             else:
                 if waiter % self.print_polling_interval == 0:
                     logger.info(
-                        "Waiting for correct handshake registration confirmation ..."
+                        "Waiting for correct handshake registration "
+                        "confirmation ..."
                     )
                 waiter += 1
             time.sleep(self.polling_interval)
@@ -117,7 +119,8 @@ class FileHandshaker:
             handshake_in = json.loads(
                 self.read_until_path_exists(
                     self.handshake_input_path,
-                    wait_message="Waiting for handshake file ...",
+                    wait_message="Waiting for handshake file at "
+                    f"{self.handshake_input_path} ...",
                 )
             )
 
@@ -150,7 +153,7 @@ class FileHandshaker:
                 raise ValueError(f"Invalid handshake command: {command}")
 
             if waiter % self.print_polling_interval == 0:
-                logger.info("Waiting for registration confirmation...")
+                logger.info("Waiting for registration confirmation ...")
             time.sleep(self.polling_interval)
             waiter += 1
 
