@@ -28,6 +28,7 @@ class FileHandshaker:
         self.self_uuid = str(self_uuid)
         self.other_uuid = None
 
+        self.last_write = None
         self.is_initiator = is_initiator
 
         self.input_dir_path = input_dir_path
@@ -54,6 +55,16 @@ class FileHandshaker:
         else:
             return self.shake_receiver()
 
+    def write_filecontent(self, path: pl.Path, content: str):
+        path.write_text(content)
+
+        self.last_write = path, content
+
+    def retry_last_write(self):
+        if self.last_write is not None:
+            path, content = self.last_write
+            self.write_filecontent(path, content)
+
     def shake_initiator(self):
         """Shake hand by initiator"""
 
@@ -63,7 +74,9 @@ class FileHandshaker:
         }
         if self.handshake_output_path.exists():
             self.handshake_output_path.unlink()
-        self.handshake_output_path.write_text(json.dumps(handshake_out))
+        self.write_filecontent(
+            self.handshake_output_path, json.dumps(handshake_out)
+        )
         logger.info(f"Wrote handshake file to {self.handshake_output_path}")
 
         def try_handshake():
@@ -89,6 +102,8 @@ class FileHandshaker:
                         "Waiting for correct handshake registration "
                         "confirmation ..."
                     )
+                    self.retry_last_write()
+
                 waiter += 1
             time.sleep(self.polling_interval)
 
@@ -101,7 +116,9 @@ class FileHandshaker:
         }
         if self.handshake_output_path.exists():
             self.handshake_output_path.unlink()
-        self.handshake_output_path.write_text(json.dumps(handshake_out))
+        self.write_filecontent(
+            self.handshake_output_path, json.dumps(handshake_out)
+        )
 
         assert other_uuid is not None
 
@@ -135,9 +152,11 @@ class FileHandshaker:
                         "uuid": self.self_uuid,
                         "confirmed_uuid": other_uuid,
                     }
-                    self.handshake_output_path.write_text(
-                        json.dumps(handshake_out)
+
+                    self.write_filecontent(
+                        self.handshake_output_path, json.dumps(handshake_out)
                     )
+
                     logger.info(
                         f"Wrote handshake confirmation to {self.handshake_output_path}"
                     )
@@ -154,6 +173,8 @@ class FileHandshaker:
 
             if waiter % self.print_polling_interval == 0:
                 logger.info("Waiting for registration confirmation ...")
+                self.retry_last_write()
+
             time.sleep(self.polling_interval)
             waiter += 1
 
@@ -176,5 +197,6 @@ class FileHandshaker:
 
             if waiter % self.print_polling_interval == 0:
                 logger.debug(wait_message)
+                self.retry_last_write()
             time.sleep(self.polling_interval)
             waiter += 1
