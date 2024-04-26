@@ -1,7 +1,7 @@
-import logging
 import json
-import time
+import logging
 import pathlib as pl
+import time
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -28,6 +28,7 @@ class FileHandshaker:
         self.self_uuid = str(self_uuid)
         self.other_uuid = None
 
+        self.last_write = None
         self.is_initiator = is_initiator
 
         self.input_dir_path = input_dir_path
@@ -54,6 +55,16 @@ class FileHandshaker:
         else:
             return self.shake_receiver()
 
+    def write_filecontent(self, path: pl.Path, content: str):
+        path.write_text(content)
+
+        self.last_write = path, content
+
+    def retry_last_write(self):
+        if self.last_write is not None:
+            path, content = self.last_write
+            self.write_filecontent(path, content)
+
     def shake_initiator(self):
         """Shake hand by initiator"""
 
@@ -63,13 +74,16 @@ class FileHandshaker:
         }
         if self.handshake_output_path.exists():
             self.handshake_output_path.unlink()
-        self.handshake_output_path.write_text(json.dumps(handshake_out))
+        self.write_filecontent(
+            self.handshake_output_path, json.dumps(handshake_out)
+        )
         logger.info(f"Wrote handshake file to {self.handshake_output_path}")
 
         def try_handshake():
             handshake_input_content = self.read_until_path_exists(
                 self.handshake_input_path,
-                wait_message="Waiting for handshake confirmation ...",
+                wait_message="Waiting for handshake confirmation at "
+                f"{self.handshake_input_path}...",
             )
 
             return json.loads(handshake_input_content)
@@ -85,8 +99,11 @@ class FileHandshaker:
             else:
                 if waiter % self.print_polling_interval == 0:
                     logger.info(
-                        "Waiting for correct handshake registration confirmation ..."
+                        "Waiting for correct handshake registration "
+                        "confirmation ..."
                     )
+                    self.retry_last_write()
+
                 waiter += 1
             time.sleep(self.polling_interval)
 
@@ -99,7 +116,9 @@ class FileHandshaker:
         }
         if self.handshake_output_path.exists():
             self.handshake_output_path.unlink()
-        self.handshake_output_path.write_text(json.dumps(handshake_out))
+        self.write_filecontent(
+            self.handshake_output_path, json.dumps(handshake_out)
+        )
 
         assert other_uuid is not None
 
@@ -117,7 +136,8 @@ class FileHandshaker:
             handshake_in = json.loads(
                 self.read_until_path_exists(
                     self.handshake_input_path,
-                    wait_message="Waiting for handshake file ...",
+                    wait_message="Waiting for handshake file at "
+                    f"{self.handshake_input_path} ...",
                 )
             )
 
@@ -132,9 +152,11 @@ class FileHandshaker:
                         "uuid": self.self_uuid,
                         "confirmed_uuid": other_uuid,
                     }
-                    self.handshake_output_path.write_text(
-                        json.dumps(handshake_out)
+
+                    self.write_filecontent(
+                        self.handshake_output_path, json.dumps(handshake_out)
                     )
+
                     logger.info(
                         f"Wrote handshake confirmation to {self.handshake_output_path}"
                     )
@@ -150,7 +172,9 @@ class FileHandshaker:
                 raise ValueError(f"Invalid handshake command: {command}")
 
             if waiter % self.print_polling_interval == 0:
-                logger.info("Waiting for registration confirmation...")
+                logger.info("Waiting for registration confirmation ...")
+                self.retry_last_write()
+
             time.sleep(self.polling_interval)
             waiter += 1
 
@@ -173,5 +197,6 @@ class FileHandshaker:
 
             if waiter % self.print_polling_interval == 0:
                 logger.debug(wait_message)
+                self.retry_last_write()
             time.sleep(self.polling_interval)
             waiter += 1

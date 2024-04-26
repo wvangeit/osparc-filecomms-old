@@ -136,7 +136,7 @@ def test_handshake_receiver(mocker):
     assert other_uuid == initiator_uuid
     assert receiver_handshake.other_uuid == initiator_uuid
 
-    assert len(written_texts) == 1
+    assert len(written_texts) > 1
 
     confirmed_handshake = {
         "uuid": receiver_uuid,
